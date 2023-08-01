@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Library</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .book-form {
+            margin-bottom: 20px;
+        }
+
+        .book-form form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .book-form label {
+            font-weight: bold;
+        }
+
+        .book-form input,
+        .book-form button {
+            margin: 5px 0;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .book-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            grid-gap: 10px;
+        }
+
+        .book-card {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .book-card button {
+            margin-top: 5px;
+            padding: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>My Book Library</h1>
+        <div class="book-form">
+            <h2>Add New Book</h2>
+            <form id="bookForm">
+                <label for="title">Title:</label>
+                <input type="text" id="title" required>
+                <label for="author">Author:</label>
+                <input type="text" id="author" required>
+                <label for="pages">Pages:</label>
+                <input type="number" id="pages" required>
+                <label for="read">Read:</label>
+                <input type="checkbox" id="read">
+                <button type="submit">Add Book</button>
+            </form>
+        </div>
+        <div class="book-list" id="bookList">
+            <!-- Book cards will be added here -->
+        </div>
+    </div>
+    <script>
+
+
+        let myLibrary = [];
+
+        function Book(title, author, pages, read) {
+            this.title = title;
+            this.author = author;
+            this.pages = pages;
+            this.read = read;
+        }
+
+        function addBookToLibrary() {
+            const title = document.getElementById('title').value;
+            const author = document.getElementById('author').value;
+            const pages = document.getElementById('pages').value;
+            const read = document.getElementById('read').checked;
+
+            const newBook = new Book(title, author, pages, read);
+            myLibrary.push(newBook);
+
+            displayBooks();
+        }
+
+        function displayBooks() {
+            const bookList = document.getElementById('bookList');
+            bookList.innerHTML = '';
+
+            myLibrary.forEach((book, index) => {
+                const bookCard = document.createElement('div');
+                bookCard.classList.add('book-card');
+
+                const bookInfo = document.createElement('p');
+                bookInfo.textContent = `Title: ${book.title}
+Author: ${book.author}
+Pages: ${book.pages}
+Read: ${book.read ? 'Yes' : 'No'}`;
+
+                const removeButton = document.createElement('button');
+                removeButton.textContent = 'Remove';
+                removeButton.addEventListener('click', () => {
+                    removeBook(index);
+                });
+
+                const toggleReadButton = document.createElement('button');
+                toggleReadButton.textContent = book.read ? 'Mark Unread' : 'Mark Read';
+                toggleReadButton.addEventListener('click', () => {
+                    toggleRead(index);
+                });
+
+                bookCard.appendChild(bookInfo);
+                bookCard.appendChild(removeButton);
+                bookCard.appendChild(toggleReadButton);
+                bookList.appendChild(bookCard);
+            });
+        }
+
+        function removeBook(index) {
+            myLibrary.splice(index, 1);
+            displayBooks();
+        }
+
+        function toggleRead(index) {
+            myLibrary[index].read = !myLibrary[index].read;
+            displayBooks();
+        }
+
+        const bookForm = document.getElementById('bookForm');
+        bookForm.addEventListener('submit', (event) => {
+            event.preventDefault();
+            addBookToLibrary();
+        });
+
+        // Example - adding initial books to the library (optional)
+        const book1 = new Book('The Great Gatsby', 'F. Scott Fitzgerald', 180, true);
+        const book2 = new Book('To Kill a Mockingbird', 'Harper Lee', 281, false);
+        myLibrary.push(book1, book2);
+
+        // Display initial books
+        displayBooks();
+
+
+
+    </script>
+</body>
+
+</html>
