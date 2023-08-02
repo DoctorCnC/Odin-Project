@@ -1,0 +1,21 @@
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 100px);
+  grid-gap: 5px;
+  justify-content: center;
+}
+
+.grid div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100px;
+  height: 100px;
+  font-size: 48px;
+  border: 1px solid #ccc;
+}
+
+.message {
+  text-align: center;
+  margin: 10px 0;
+}
