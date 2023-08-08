@@ -34,3 +34,35 @@ body {
   border-radius: 5px;
 }
 
+/* Style buttons */
+.btn {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* Style list items */
+.cv-item {
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Style delete button in list items */
+.delete-btn {
+  background-color: #dc3545;
+}
+
+/* Media query for responsiveness */
+@media (max-width: 600px) {
+  .cv-container {
+    padding: 10px;
+  }
+}
+
+
