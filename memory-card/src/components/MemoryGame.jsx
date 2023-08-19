@@ -9,3 +9,24 @@ const shuffleArray = (array) => {
     }
     return shuffledArray;
 };
+
+const MemoryGame = () => {
+    const initialCards = [
+        { id: 1, value: 'A', isFlipped: false },
+        { id: 2, value: 'A', isFlipped: false },
+        { id: 3, value: 'B', isFlipped: false },
+        { id: 4, value: 'B', isFlipped: false },
+    ];
+
+    const [cards, setCards] = useState(initialCards);
+    const [flippedCards, setFlippedCards] = useState([]);
+
+    const handleCardClick = (clickedCard) => {
+        if (flippedCards.length < 2 && !clickedCard.isFlipped) {
+            const updatedCards = cards.map(card =>
+                card.id === clickedCard.id ? { ...card, isFlipped: true } : card
+            );
+            setCards(updatedCards);
+            setFlippedCards([...flippedCards, clickedCard]);
+        }
+    };
