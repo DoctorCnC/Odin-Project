@@ -30,3 +30,21 @@ const MemoryGame = () => {
             setFlippedCards([...flippedCards, clickedCard]);
         }
     };
+useEffect(() => {
+        if (flippedCards.length === 2) {
+            if (flippedCards[0].value === flippedCards[1].value) {
+                const updatedCards = cards.map(card =>
+                    card.id === flippedCards[0].id || card.id === flippedCards[1].id ? { ...card, isFlipped: true } : card
+                );
+                setCards(updatedCards);
+            } else {
+                setTimeout(() => {
+                    const updatedCards = cards.map(card =>
+                        card.id === flippedCards[0].id || card.id === flippedCards[1].id ? { ...card, isFlipped: false } : card
+                    );
+                    setCards(updatedCards);
+                }, 1000);
+            }
+            setFlippedCards([]);
+        }
+    }, [flippedCards]);
