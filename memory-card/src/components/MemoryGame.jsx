@@ -48,3 +48,15 @@ useEffect(() => {
             setFlippedCards([]);
         }
     }, [flippedCards]);
+
+        return (
+        <div className='memory-game'>
+            {cards.map(card => (
+                <MemoryCard key={card.id} card={card} onClick={handleCardClick} />
+            ))}
+        </div>
+    );
+};
+
+export default MemoryGame;
+
