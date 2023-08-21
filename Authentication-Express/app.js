@@ -70,5 +70,62 @@ passport.deserializeUser(async function (id, done) {
     };
 });
 
+app.post(
+    "/log-in",
+    passport.authenticate("local", {
+        successRedirect: "/",
+        failureRedirect: "/"
+    })
+);
+
+
+
+
+
+passport.use(
+    new LocalStrategy(async (username, password, done) => {
+
+        try {
+            const user = await User.findOne({
+                username: username
+            });
+            if (!user) {
+                return done(null, false, {
+                    message: "incorret username"
+                });
+
+            };
+            if (user.password !== password) {
+                return done(null, false, {
+                    message: " incorrenct passowrd"
+                });
+            };
+
+
+            return done(null, user);
+        } catch (err) {
+            return done(err);
+        };
+    })
+
+);
+passport.use(
+    new LocalStrategy(async (username, password, done) => {
+        try {
+            const user = await User.findOne({ username: username });
+            if (!user) {
+                return done(null, false, { message: "Incorrect username" });
+            };
+            if (user.password !== password) {
+                return done(null, false, { message: "Incorrect password" });
+            };
+            return done(null, user);
+        } catch (err) {
+            return done(err);
+        };
+    })
+);
+
+
 
 
