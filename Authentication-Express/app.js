@@ -127,5 +127,24 @@ passport.use(
 );
 
 
+app.get("/log-out", (req, res, next) => {
+
+    req.logout(function (err) {
+        if (err) {
+            return next(err);
+        }
+        res.redirect('/');
+
+    });
+});
+
+
+bcrypt.hash("somePassword", 10, async (err, hashedPassword) => {
+    // if err, do something
+    // otherwise, store hashedPassword in DB
+});
+
+
+
 
 
