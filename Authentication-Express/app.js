@@ -57,4 +57,18 @@ app.post("/sign-up", async (req, res, next) => {
     };
 });
 
+passport.serializeUser(function (user, done) {
+    done(null, user.id);
+});
+
+passport.deserializeUser(async function (id, done) {
+    try {
+        const user = await User.findById(id);
+        done(null, user);
+    } catch (err) {
+        done(err);
+    };
+});
+
+
 
