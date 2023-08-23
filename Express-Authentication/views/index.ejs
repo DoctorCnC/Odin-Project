@@ -5,3 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Express Auth App</title>
 </head>
+<body>
+  <h1>Welcome to the Express Auth App</h1>
+  <% if (!user) { %>
+    <a href="/login">Log In</a>
+  <% } else { %>
+    <p>Hello, <%= user.username %>!</p>
+    <a href="/logout">Log Out</a>
+  <% } %>
+</body>
+</html>
